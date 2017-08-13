@@ -7,11 +7,7 @@ public class Dictionary {
     private final boolean[] bitmap;
 
     public Dictionary() {
-        this(0xfffff);
-    }
-
-    public Dictionary(int mapSize) {
-        this.bitmap = new boolean[mapSize];
+        this.bitmap = new boolean[0xfffff];
     }
 
     public void add(String element) {

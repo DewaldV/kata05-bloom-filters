@@ -2,7 +2,9 @@ package com.dewaldv.kata05;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
@@ -34,12 +36,13 @@ public class DictionaryTest {
 
     @Test
     public void shouldCheckWordsInDictionary() throws Exception {
-        String unixDict = "/usr/share/dict/words";
+        Path unixDict = Paths.get("/usr/share/dict/words");
 
         Dictionary dictionary = new Dictionary();
 
-        Stream<String> lines = Files.lines(Paths.get(unixDict));
-        lines.forEach(dictionary::add);
+        try (Stream<String> lines = Files.lines(unixDict)) {
+            lines.forEach(dictionary::add);
+        }
 
         assertThat(dictionary.contains("hyper"), is(true));
         assertThat(dictionary.contains("special"), is(true));
